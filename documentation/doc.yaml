@@ -935,6 +935,23 @@ annotations:
     - ingress
     version_min: "1.4"
     example: ['set-host: "example.local"']
+  - title: servers-increment
+    type: number
+    group: servers-slots
+    dependencies: ""
+    default: "42"
+    description:
+    - Sets the number of disabled servers to add to the backend in order for the controller
+      to insert new pods dynamically without a reload. When the ingress controller creates
+      new pods and there are not enough disabled servers standing by, it adds X new
+      disabled servers, where X is specified here.
+    tip: []
+    values:
+    - Integer value indicating the number of disabled servers to add. Defaults to 42.
+    applies_to:
+    - configmap
+    version_max: "1.3"
+    example: ['servers-increment: 75']
   - title: server-slots
     type: number
     group: server-slots
