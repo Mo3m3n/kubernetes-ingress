@@ -140,7 +140,8 @@ func refreshCerts(certs map[string]bool, certDir string) (reload bool) {
 		filename := f.Name()
 		used := certs[filename]
 		if !used {
-			logger.Error(os.Remove(path.Join(certDir, filename)))
+			// MMH: test not cleaning certs dir
+			// logger.Error(os.Remove(path.Join(certDir, filename)))
 			delete(certs, filename)
 			reload = true
 		}
