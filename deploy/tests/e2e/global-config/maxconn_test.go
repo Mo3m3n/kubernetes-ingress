@@ -42,5 +42,6 @@ func (suite *GlobalConfigSuite) checkMaxconn() bool {
 		suite.T().Log(err)
 		return false
 	}
+	suite.T().Logf("maxconn: %s", suite.maxconn)
 	return r.Maxconn == suite.maxconn
 }
