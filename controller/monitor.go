@@ -90,6 +90,7 @@ func (c *HAProxyController) monitorChanges() {
 func (c *HAProxyController) SyncData() {
 	hadChanges := false
 	for job := range c.eventChan {
+		logger.Infof("Event channel length: %d", len(c.eventChan))
 		ns := c.Store.GetNamespace(job.Namespace)
 		change := false
 		switch job.SyncType {
