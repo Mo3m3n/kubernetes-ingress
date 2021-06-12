@@ -93,7 +93,7 @@ func (c *HAProxyController) Start() {
 
 	// Get K8s client
 	c.k8s, err = GetKubernetesClient()
-	if c.OSArgs.External {
+	if c.OSArgs.External || c.OSArgs.KubeConfig != "" {
 		kubeconfig := filepath.Join(utils.HomeDir(), ".kube", "config")
 		if c.OSArgs.KubeConfig != "" {
 			kubeconfig = c.OSArgs.KubeConfig

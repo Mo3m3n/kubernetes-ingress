@@ -88,6 +88,8 @@ func (c *HAProxyController) monitorChanges() {
 // SyncData gets all kubernetes changes, aggregates them and apply to HAProxy.
 // All the changes must come through this function
 func (c *HAProxyController) SyncData() {
+	var i float64
+	var elapsed time.Duration
 	hadChanges := false
 	for job := range c.eventChan {
 		ns := c.Store.GetNamespace(job.Namespace)
@@ -96,7 +98,12 @@ func (c *HAProxyController) SyncData() {
 		case COMMAND:
 			c.reload = c.auxCfgUpdated()
 			if hadChanges || c.reload {
+				i++
+				start := time.Now()
 				c.updateHAProxy()
+				elapsed += time.Since(start)
+				logger.Printf("Average time: %f seconds", elapsed.Seconds()/i)
+				logger.Infof("Event channel length: %d", len(c.eventChan))
 				hadChanges = false
 				continue
 			}
